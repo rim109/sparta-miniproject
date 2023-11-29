@@ -13,7 +13,7 @@
     <script type="module">
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, doc, collection, getDocs, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getFirestore, doc, collection, getDocs, getDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCl1zt4pNZtBVX1jRnqYG_GUHOEeGxuGMI",
@@ -31,16 +31,25 @@
         $("#postingbtn").click(async function () {
             let nickname = $("#nickname").val();
             let comments = $("#comments").val();
-            console.log(nickname)
+            let password = $("#password").val();
+            
 
-            let guestbook_doc = {
-                "nickname": nickname,
-                "comments": comments
-            };
+            if (password == "") {
+                alert("비밀번호를 입력해주세요")
+            } else {
+                let guestbook_doc = {
+                    "nickname": nickname,
+                    "comments": comments,
+                    "password": password
+                };
 
-            await addDoc(collection(db, "myself"), guestbook_doc);
-            alert("작성 완료!");
-            window.location.reload()
+                await addDoc(collection(db, "myself"), guestbook_doc);
+                alert("작성 완료!");
+                window.location.reload();
+            }
+
+
+
         })
 
         $("#close-btn").click(async function () {
@@ -59,23 +68,14 @@
 
         });
 
-    
-	
-
-
-
-
-
-
         let guestbook_docs = await getDocs(collection(db, "myself"));
         guestbook_docs.forEach((guestbook_doc) => {
             let row = guestbook_doc.data();
-            // console.log(row)
-            // console.log(doc)
-            // console.log(doc.id)
+            
             let id = guestbook_doc.id
             let nickname = row["nickname"]
             let comments = row["comments"]
+
 
             let temp_html = `
                                 <div class="col">
@@ -91,15 +91,29 @@
 
         });
 
-        async function deleteEntry(entryId) {
-            await deleteDoc(doc(db, "myself", entryId));
-            alert("삭제되었습니다.");
+        async function deleteEntry(entryId, result) {
+            const delete_docs = await getDoc(doc(db, "myself", entryId));
+            let pw = delete_docs.data()["password"]
+
+            if (pw == result) {
+                await deleteDoc(doc(db, "myself", entryId));
+                alert("삭제되었습니다.");
+            } else {
+                alert("비밀번호가 맞지 않습니다.");
+            }
             window.location.reload();
+
         }
 
-        $(document).on('click', '.btn.btn-dark.del-btn', function () {
+        $(document).on("click", ".btn.btn-dark.del-btn", function () {
             let entryId = $(this).attr('id');
-            deleteEntry(entryId);
+
+            let result = prompt("비밀번호를 입력하세요");
+
+            if (result == "") {
+                alert("비밀번호를 입력해주세요")
+            }
+            deleteEntry(entryId, result);
         });
 
 
@@ -130,8 +144,8 @@
             </div>
         </div>
         <div class="navbar navbar-dark bg-dark shadow-sm">
-            <div class="back-svg" id="backbtn"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                    class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+            <div class="back-svg" id="backbtn"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                    fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
                     <path
                         d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
                 </svg></div>
@@ -195,7 +209,11 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">방명록</label>
-            <textarea class="form-control" id="comments" placeholder="방명록" rows="10"></textarea>
+            <textarea class="form-control" id="comments" placeholder="방명록" rows="8"></textarea>
+        </div>
+        <div class="mb-333">
+            <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
+            <textarea class="form-control" id="password" placeholder="비밀번호" rows="1"></textarea>
         </div>
         <button id="postingbtn" type="button" class="btn btn-dark">작성하기
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill"
@@ -209,7 +227,7 @@
 
     <div class="row row-cols-1 row-cols-md-4 g-4" id="guest-books"></div>
 
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
