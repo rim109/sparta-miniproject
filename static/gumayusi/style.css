@@ -1,0 +1,87 @@
+.name {
+    margin-left: 10px;
+}
+
+.back-svg {
+    color: white;
+    margin-left: 10px;
+}
+
+.featurette-divider {
+    margin: 5rem 0;
+    margin-left: 20px;
+    width: 98%;
+    
+
+}
+
+.hr {
+    margin: 1rem 0;
+    color: inherit;
+    border: 0;
+    border-top: var(--bs-border-width) solid;
+    opacity: .25;
+
+}
+
+.row {
+    width: 100%;
+    margin-left: 0px;
+}
+
+.info-myself {
+    margin-top: 100px;
+    margin-left: 80px;
+    padding-right: 0px;
+    margin-right: 0px;
+    border-radius: 30px;
+}
+
+.guestbook {
+    width: 1000px;
+    height: 510px;
+    margin: 20px auto 20px auto;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 5px;
+    display: none;
+}
+
+.mb-3 {
+    margin-top: 30px;
+}
+
+.btn-close {
+    margin-bottom: 10px;
+}
+
+.col {
+    margin-left: 100px;
+    margin-top: 50px;
+    justify-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    
+}
+
+.myphoto {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    margin-right: 100px;
+    
+
+}
+
+.deletebtn {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.lead {
+    margin-top:20px;
+    margin-left: 20px;
+    font-size: 20px;
+}

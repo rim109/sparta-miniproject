@@ -1,0 +1,73 @@
+.featurette-divider {
+    width: 10%;
+    margin-left: 1030px;
+    margin-top: 50px;
+}
+
+.team-into {
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+.card.text-center {
+    width: 1050px;
+    height: 200px;
+    padding-top: 20px;
+    margin: 20px auto 20px auto;
+    color:black;
+    
+    background-image: url("https://cdn.discordapp.com/attachments/1178579165264478241/1179252742569590865/4f2051a7538526f3.png?ex=65791bb3&is=6566a6b3&hm=2030e37b87d3073e1b4acd8fc4eb498c646a6f12857fbb5978cf29ec72889776&");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}    
+
+body {
+    background-color: black;
+}
+
+
+
+.titlepic {
+    margin-top: 80px;
+    width: 350px;
+    height: 150px;
+    
+}
+
+.centerpic {
+    width: 50px;
+    height: 100px;
+    margin-top: 3rem;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    width: 250px;
+    height: 100%;
+    margin: 0 20px;
+}
+
+.mycards {
+    display: flex;
+    justify-content: center;
+}
+
+.text.com_1 {
+    color:white;
+}
+
+.card-title {
+    font-size: xx-large;
+}
+.card-text {
+    font-size: x-large;
+}

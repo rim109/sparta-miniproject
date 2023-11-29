@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css" />
+
+    <script type="module">
+         $('#Gumayusi-page').click(function () {
+            $(location).attr("href", "http://127.0.0.1:5500/templates/gumayusi.html")
+
+        });
+
+        $('#Faker-page').click(function () {
+            $(location).attr("href", "http://127.0.0.1:5500/templates/faker.html")
+
+        });
+
+        $('#Zeus-page').click(function () {
+            $(location).attr("href", "http://127.0.0.1:5500/templates/zeus.html")
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <img class="titlepic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/T1_esports_logo.svg/2560px-T1_esports_logo.svg.png" alt="">
+    
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+        </svg>
+        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+        <hr class="featurette-divider">
+    
+        <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">T1</h5>
+              <p class="card-text">팀장인 제 이름이 "이상혁"으로 게임 league of legend의 프로게이머 팀 T1의 Faker의 이름과 동일하여 팀 이름을 T1으로 결정했습니다.</p>
+            
+            </div>
+        </div>
+        <img class="centerpic" src="/static/main/centerpic.png" alt="">
+        
+            <iframe width="560" height="360" src="https://www.youtube.com/embed/C3GouGa0noM?si=rMNmeMSkZaeylr4H"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        
+    </div>
+
+    <div class="vdo container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+            <div class="text com_1" style="font-size: 20px">
+                <li>
+                    우리 팀의 특징 : 만구일담으로 대부분의 팀원 의견이 일치합니다. 혹여 의견이 다른 부분이 일부 존재하더라도 상대방이 본인과 같지 않다는 점을 인정하여 각자의 의견을 존중하고
+                    기울여
+                    듣습니다.
+
+                </li>
+                <li>
+                    우리 팀의 강점 : 서로 소통이 잘 되어 원활한 진행이 가능하고 독특한 아이디어를 바탕으로 개성있는 페이지를 만들 수 있을 것 같습니다.
+
+                </li>
+                <li>
+                    앞으로의 각오 : 비록 우리 조는 비전공인으로 모여있지만 성실히 이 프로그램을 마쳐 벡엔드 개발자가 되기까지 열심히 할 것입니다.
+
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <div class="mycards">
+        <div class="card">
+            <h5 class="card-title">페이커</h5>
+            <img src="/static/main/페이커.PNG" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text"> 팀장: 이상혁</p>
+                <button id="Faker-page" type="button" class="btn btn-secondary">소개보기</button>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-title">제우스</h5>
+            <img src="/static/main/제우스.PNG" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text"> 팀원: 지혜영</p>
+                <button id="Zeus-page" type="button" class="btn btn-secondary">소개보기</button>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-title">구마유시</h5>
+            <img src="/static/main/구마유시.PNG" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text"> 팀원: 최혜림</p>
+                <button id="Gumayusi-page" type="button" class="btn btn-secondary">소개보기</button>
+            </div>
+        </div>          
+    </div>    
+</body>
+
+
+</html>

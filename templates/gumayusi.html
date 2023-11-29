@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>최혜림</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/gumayusi/style.css" />
+
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, doc, collection, getDocs, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl1zt4pNZtBVX1jRnqYG_GUHOEeGxuGMI",
+            authDomain: "moviescript-56800.firebaseapp.com",
+            projectId: "moviescript-56800",
+            storageBucket: "moviescript-56800.appspot.com",
+            messagingSenderId: "407763770804",
+            appId: "1:407763770804:web:ffa82dbae8362d928ca6e1"
+        };
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app)
+
+        $("#postingbtn").click(async function () {
+            let nickname = $("#nickname").val();
+            let comments = $("#comments").val();
+            console.log(nickname)
+
+            let guestbook_doc = {
+                "nickname": nickname,
+                "comments": comments
+            };
+
+            await addDoc(collection(db, "myself"), guestbook_doc);
+            alert("작성 완료!");
+            window.location.reload()
+        })
+
+        $("#close-btn").click(async function () {
+            $("#myguestbook").toggle();
+        })
+
+        $("#openclose").click(async function () {
+            $("myguestbook").css("display") == "none"
+            $("#myguestbook").show();
+        })
+
+
+        $('#backbtn').click(function () {
+            $(location).attr("href", "http://127.0.0.1:5500/index.html")
+
+
+        });
+
+    
+	
+
+
+
+
+
+
+        let guestbook_docs = await getDocs(collection(db, "myself"));
+        guestbook_docs.forEach((guestbook_doc) => {
+            let row = guestbook_doc.data();
+            // console.log(row)
+            // console.log(doc)
+            // console.log(doc.id)
+            let id = guestbook_doc.id
+            let nickname = row["nickname"]
+            let comments = row["comments"]
+
+            let temp_html = `
+                                <div class="col">
+                        <div id="guest-books" class="card border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header" id="nickname">${nickname}</div>
+                        <div class="card-body">
+                            <p class="card-text" id="comments">${comments}</p>
+                            <button id="${id}" class="btn btn-dark del-btn" type="button">delete</button>
+                            </div>
+                        </div>
+                        </div>`
+            $('#guest-books').append(temp_html);
+
+        });
+
+        async function deleteEntry(entryId) {
+            await deleteDoc(doc(db, "myself", entryId));
+            alert("삭제되었습니다.");
+            window.location.reload();
+        }
+
+        $(document).on('click', '.btn.btn-dark.del-btn', function () {
+            let entryId = $(this).attr('id');
+            deleteEntry(entryId);
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <header data-bs-theme="dark">
+
+        <div class="collapse text-bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+
+                        <h4>각오 한마디👊</h4>
+                        <p class="text-body-secondary">이제 막 시작한 단계로 두려운 부분도 다소 있지만 하나씩 차근차근 배우겠습니다. 강인한 마음으로 열심히 하겠습니다.
+                            결코 포기하지 않겠습니다.</p>
+
+                    </div>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <h4>Contact</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/rim109" class="text-white">GITHUB</a></li>
+                            <li><a href="https://rim109.tistory.com/" class="text-white">BLOG</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="back-svg" id="backbtn"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg></div>
+            <div class="container">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chat-dots" viewBox="0 0 16 16">
+                        <path
+                            d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                        <path
+                            d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
+                    </svg>
+                    <strong class="name">최혜림</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <hr class="featurette-divider">
+    <div class="info-myself">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <button id="openclose" type="button" class="btn btn-dark">방명록
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
+                    </svg>
+                </button>
+
+                <h1>Gumayusi/팀원</h1>
+                <h2 class="featurette-heading fw-normal lh-1">포기를 모르는 "최혜림"입니다. </h2>
+
+                <div class="lead">
+                    <p> MBTI: INFJ로 인내심이 많고 통찰력과 직관력이 뛰어나며 화합을 추구하는 유형이다.</p>
+                    <p> 전공: "경찰행정학과🚔"</p>
+                    <p> 취미: 노래방🎙에 가는 것!</p>
+                    <p> 장점: 끈기가 있고 성근하다~ 💪</p>
+                    <p> 애창곡: "가을타나봐🎶"</p>
+                    <p> 좋아하는 영화: "타이타닉🛳"</p>
+                </div>
+            </div>
+            <img class="myphoto" src="../static/gumayusi/Gumayusi.jpg" alt="">
+        </div>
+    </div>
+
+
+
+
+    <hr class="featurette-divider">
+
+    <div class="guestbook" id="myguestbook">
+        <button type="button" id="close-btn" class="btn-close" aria-label="Close"></button>
+        <div class="mb-33" id="myguestbook">
+            <label for="exampleFormControlInput1" class="form-label">닉네임</label>
+            <input type="email" class="form-control" id="nickname" placeholder="닉네임">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">방명록</label>
+            <textarea class="form-control" id="comments" placeholder="방명록" rows="10"></textarea>
+        </div>
+        <button id="postingbtn" type="button" class="btn btn-dark">작성하기
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill"
+                viewBox="0 0 16 16">
+                <path
+                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+            </svg>
+        </button>
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-4 g-4" id="guest-books"></div>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
