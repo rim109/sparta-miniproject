@@ -97,12 +97,12 @@
 
 
         $("#jbtn").click(async function () {
-            let name = $('#name').val();
-            let content = $('#content').val();
+            let name = $("#name").val();
+            let content = $("#content").val();
 
             let doc = {
-                'name': name,
-                'content': content
+                "name": name,
+                "content": content
             };
             await addDoc(collection(db, "T1"), doc);
             alert('저장완료!');
@@ -110,15 +110,15 @@
         })
 
         $("#svbtn").click(async function () {
-            $('#cards').toggle();
+            $("#cards").toggle();
         })
 
         let docs = await getDocs(collection(db, "T1"));
         docs.forEach((doc) => {
             let row = doc.data();
 
-            let name = row['name'];
-            let content = row['content'];
+            let name = row["name"];
+            let content = row["content"];
 
             let temp_html = `
                             <div id-"c1" class="card border-dark mb-3" style="width: 350px;">
@@ -164,7 +164,7 @@
             <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
                 <button type="button" class="btn btn-outline-dark px-4"
                     onClick="location.href='https://t1storysh.tistory.com/'">My blog</button>
-                <button type="button" class="btn btn-outline-danger px-4" onClick="location.href='https://rim109.github.io/sparta-miniproject'">Back</button>
+                <button type="button" class="btn btn-outline-danger px-4" onClick="history.back()">Back</button>
             </div>
         </div>
         <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
@@ -195,13 +195,6 @@
             </div>
         </div>
         <div class="mcd">
-            <!-- <div id="c1" class="card border-dark mb-3" style="width: 350px;">
-            <div class="card-header" >Header</div>
-            <div class="card-body">
-                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-            </div>
-        </div> -->
         </div>
     </div>
 
