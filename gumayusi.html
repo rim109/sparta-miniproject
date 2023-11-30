@@ -96,6 +96,7 @@
                 alert("삭제되었습니다.");
             } else {
                 alert("비밀번호가 맞지 않습니다.");
+                preventDefault();
             }
             window.location.reload();
 
@@ -104,11 +105,16 @@
         $(document).on("click", ".btn.btn-dark.del-btn", function () {
             let entryId = $(this).attr('id');
 
-            let result = prompt("비밀번호를 입력하세요");
+            let result = prompt("비밀번호를 입력해주세요");
+            if (result == null){
+                preventDefault();
+            }
 
             if (result == "") {
                 alert("비밀번호를 입력해주세요")
+                preventDefault();
             }
+
             deleteEntry(entryId, result);
         });
 
